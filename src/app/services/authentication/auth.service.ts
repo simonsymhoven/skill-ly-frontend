@@ -4,11 +4,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from "../../../environments/environment";
 
-
-const AUTH_API = 'http://localhost:8080/api/v1/auth/';
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -32,7 +31,7 @@ export class AuthService {
      * @param credentials
      */
      login(credentials): Observable<any> {
-          return this.http.post(AUTH_API + 'signin', {
+          return this.http.post(environment.baseURL + '/auth/signin', {
             username: credentials.username,
             password: credentials.password
           }, httpOptions).pipe(
@@ -51,7 +50,7 @@ export class AuthService {
      * @param employee
      */
     register(employee): Observable<any> {
-        return this.http.post(AUTH_API + 'signup', {
+        return this.http.post(environment + '/auth/signup', {
           name: employee.name,
           username: employee.username,
           email: employee.email,

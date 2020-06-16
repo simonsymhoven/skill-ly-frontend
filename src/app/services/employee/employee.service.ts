@@ -3,14 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Employee } from '../../models/employee.model';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
-import { Permission } from '../../models/permission.enum';
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class EmployeeService {
-    private employeeEndpoint = 'http://localhost:8080/api/v1/employee/';
     /**
      * Constructor
      *
@@ -28,7 +27,7 @@ export class EmployeeService {
      * @param username
      */
     getEmployee(username: string): Observable<Employee> {
-        return this._httpClient.get<Employee>(this.employeeEndpoint + username)
+        return this._httpClient.get<Employee>(environment.baseURL + '/employee/' + username)
             .pipe(
                 retry(3),
                 catchError(this.errorHandler)
