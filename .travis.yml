@@ -12,8 +12,6 @@ install:
 script:
 - ng lint
 - ng build --prod
-before_deploy:
-- cd dist
 deploy:
   provider: heroku
   api_key:
