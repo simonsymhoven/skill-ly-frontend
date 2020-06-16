@@ -1,0 +1,21 @@
+language: node_js
+services: docker
+node_js:
+- node
+branches:
+  only:
+  - master
+before_install:
+- npm install -g --silent @angular/cli
+install:
+- npm install
+script:
+- ng lint
+- ng build --prod
+before_deploy:
+- cd dist
+deploy:
+  provider: heroku
+  api_key:
+    secure: IaBE9YFxnp2PbMUd1hEAOvWoktnWedR8dapgYH05MQXzpnGYp+6LcVkdKjRt8vFVbzpZSh1mYSgz3WBZLXy3Pgf88xcuH2U/rEvdh54U6Mu8UZQwZafrHRMik2ekZlHU3jIkV6q+bxdtVSRKYg94G5qgf45zkTIdP4/fXqt2D/rpJ6qIgBaXKSRvrKDmhFLL1s83FCJgkqxOCTWIgt9eyXZcTlkLRgFagrk9oYDk02izjtF2W24v29UcURl1tgMw+DiUvn6bBu1b3hnCHuAMI892kLOLs8ey5Ul8gqO1EhZFala2Wz/FBSGbNXstBzjivQmOBXhbBeWRG9nnaNd2CVc9fC0jk/KDTxGkkKzYgtvodjP5F9SY7YN5ugvE/QjKb9vn3XHLZaQk7pSIfVYqscOq4rxxrfkjAXXfJbZF/eVnNW9jbP15YNJRBtZbJ1KD18WWXTi4y+6I9nSWcCtD0Bo6kypW0vNooCbhaA0RIfV5is5/m+BCpHDHpxLcaedTNuiNvn2z72XNzKjYIXoEBcgG1vluvPvcBCxiHVwzZrbz/yTCtu7jtZmRA11NM4qRVDUSjdLLXr4SQR1ds/Div9W2Qnk2n7y9Sjf/8Glrn3jNaTzL30NoYl8yJrGXX96SPwsufgoKADFAPHwp32TvwHCAGs/hCX1ibWGtIs3rIZI=
+  app: skill-ly-angular-app

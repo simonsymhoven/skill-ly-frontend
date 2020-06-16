@@ -1,0 +1,87 @@
+<div id="about" class="p-24" fxLayout="row wrap">
+
+    <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
+
+        <div class="profile-box info-box general" fxLayout="column">
+
+            <header class="accent">
+                <div class="title">{{ 'GENERAL_INFORMATION.TITLE' | translate }}</div>
+            </header>
+
+            <div class="content">
+                <div class="info-line">
+                    <div class="title">{{ 'GENERAL_INFORMATION.USERNAME' | translate }}</div>
+                    <div class="info">{{employee.username}}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">E-Mail</div>
+                    <div class="info">{{employee.email}}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">{{ 'GENERAL_INFORMATION.LOCATION' | translate }}</div>
+                    <div class="info location" fxLayout="row" fxLayoutAlign="start center">
+                        <span>Munich, Germany</span>
+                        <mat-icon class="s-16 ml-4">location_on</mat-icon>
+                    </div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">{{ 'GENERAL_INFORMATION.ABOUT_ME' | translate }}</div>
+                    <div class="info">Dies, Das, Jenes</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="about-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="35">
+
+        <div class="profile-box friends" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">{{ 'FRIENDS.TITLE' | translate }}</div>
+            </header>
+
+            <div class="content" fxLayout="row wrap">
+                <div class="friend" fxFlex="20">
+                    <img src="../../../../../../assets/images/avatars/placeholder.png">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="profile-box groups" fxLayout="column">
+
+            <header class="accent" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="title">{{ 'GROUPS.TITLE' | translate }}</div>
+            </header>
+
+            <div class="content">
+
+                <div class="group" fxLayout="row"
+                     fxLayoutAlign="space-between center">
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+
+                        <div class="logo">G1</div>
+
+                        <div>
+                            <div class="name">{{ 'GROUPS.GROUP' | translate }} 1</div>
+                            <div class="category">{{ 'GROUPS.CATEGORY' | translate }} 1</div>
+                            <div class="members">12 {{ 'GROUPS.MEMBERS' | translate }}</div>
+                        </div>
+                    </div>
+
+                    <button mat-icon-button aria-label="More">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
