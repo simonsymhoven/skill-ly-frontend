@@ -1,16 +1,17 @@
-# Fuse - Angular
+# ![](src/assets/images/logos/logo_small.png) The frontend part of Skill-Ly 
 
-Material Design Admin Template with Angular 8 and Angular Material
 
-## The Community
+![CLI9](https://img.shields.io/badge/cli-9-red.svg?label=CLI)
+![npm](https://img.shields.io/npm/v/npm/latest)
+![node](https://img.shields.io/badge/node-12.16.3-blue)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/simonsymhoven/skill-ly-frontend.svg)](https://github.com/simonsymhoven/skill-ly-frontend/pulls)
+![Travis](https://travis-ci.com/simonsymhoven/skill-ly-frontend.svg?branch=master)
 
-Share your ideas, discuss Fuse and help each other.
-
-[Click here](http://fusetheme.com/community) to see our Community page.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. 
+The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
