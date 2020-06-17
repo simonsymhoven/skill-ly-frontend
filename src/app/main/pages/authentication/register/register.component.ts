@@ -119,7 +119,7 @@ export class RegisterComponent implements OnInit, OnDestroy
                     this.router.navigateByUrl('/pages/auth/login');
                 },
                 error => {
-                    this._snackbar.open("Error " + error.status + ": " + error.message, "Ok")
+                    this._snackbar.open('Error ' + error.status + ': ' + error.message, 'Ok');
                     this.fuseProgressBarService.hide();
                     throw error;
                 }

@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit
                     this.router.navigateByUrl('/pages/dashboard');
                 },
                 error => {
-                    this._snackbar.open("Error " + error.status + ": " + error.message, "Ok")
+                    this._snackbar.open('Error ' + error.status + ': ' + error.message, 'Ok');
                     this.fuseProgressBarService.hide();
                     throw error;
                 }
