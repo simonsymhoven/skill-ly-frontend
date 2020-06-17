@@ -5,7 +5,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 
 @Component({
-    selector     : 'forgot-password-2',
+    selector     : 'forgot-password',
     templateUrl  : './forgot-password.component.html',
     styleUrls    : ['./forgot-password.component.scss'],
     encapsulation: ViewEncapsulation.None,

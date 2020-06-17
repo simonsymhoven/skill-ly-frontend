@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Permission } from '../../../../models/permission.enum';
 import {Employee} from '../../../../models/employee.model';
 import {FuseProgressBarService} from '../../../../../@fuse/components/progress-bar/progress-bar.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector     : 'register',
@@ -27,12 +28,23 @@ export class RegisterComponent implements OnInit, OnDestroy
     // Private
     private _unsubscribeAll: Subject<any>;
 
+    /**
+     * Constructor
+     *
+     * @param _fuseConfigService
+     * @param _formBuilder
+     * @param authService
+     * @param router
+     * @param fuseProgressBarService
+     * @param _snackbar
+     */
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private authService: AuthService,
         private router: Router,
         private fuseProgressBarService: FuseProgressBarService,
+        private _snackbar: MatSnackBar
     )
     {
         // Configure the layout
@@ -107,6 +119,7 @@ export class RegisterComponent implements OnInit, OnDestroy
                     this.router.navigateByUrl('/pages/auth/login');
                 },
                 error => {
+                    this._snackbar.open("Error " + error.status + ": " + error.message, "Ok")
                     this.fuseProgressBarService.hide();
                     throw error;
                 }

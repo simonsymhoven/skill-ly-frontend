@@ -2,7 +2,7 @@ export const locale = {
     lang: 'es',
     data: {
         APPLICATIONS : 'Menú',
-        SAMPLE : 'Dashboard',
+        DASHBOARD : 'Dashboard',
         PROFILE : 'Mi perfil'
     }
 };

@@ -50,7 +50,7 @@ export class AuthService {
      * @param employee
      */
     register(employee): Observable<any> {
-        return this.http.post(environment + '/auth/signup', {
+        return this.http.post(environment.baseURL + '/auth/signup', {
           name: employee.name,
           username: employee.username,
           email: employee.email,

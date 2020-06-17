@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import {AuthService} from '../../../../services/authentication/auth.service';
-import {Router} from '@angular/router';
-import {FuseProgressBarService} from '../../../../../@fuse/components/progress-bar/progress-bar.service';
+import { Router } from '@angular/router';
+import { FuseProgressBarService } from '../../../../../@fuse/components/progress-bar/progress-bar.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector     : 'login',
@@ -23,13 +24,18 @@ export class LoginComponent implements OnInit
      *
      * @param {FuseConfigService} _fuseConfigService
      * @param {FormBuilder} _formBuilder
+     * @param authService
+     * @param router
+     * @param fuseProgressBarService
+     * @param _snackbar
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private authService: AuthService,
         private router: Router,
-        private fuseProgressBarService: FuseProgressBarService
+        private fuseProgressBarService: FuseProgressBarService,
+        private _snackbar: MatSnackBar
     )
     {
         // Configure the layout
@@ -79,6 +85,7 @@ export class LoginComponent implements OnInit
                     this.router.navigateByUrl('/pages/dashboard');
                 },
                 error => {
+                    this._snackbar.open("Error " + error.status + ": " + error.message, "Ok")
                     this.fuseProgressBarService.hide();
                     throw error;
                 }

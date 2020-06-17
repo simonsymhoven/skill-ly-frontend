@@ -45,6 +45,7 @@ export class FuseShortcutsComponent implements OnInit, AfterViewInit, OnDestroy
      * @param {FuseNavigationService} _fuseNavigationService
      * @param {MediaObserver} _mediaObserver
      * @param {Renderer2} _renderer
+     * @param _fuseTranslationLoaderService
      */
     constructor(
         private _cookieService: CookieService,
