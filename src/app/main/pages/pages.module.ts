@@ -8,10 +8,11 @@ import { ForgotPasswordModule } from './authentication/forgot-password/forgot-pa
 import { MailConfirmModule } from './authentication/mail-confirm/mail-confirm.module';
 import { RegisterModule } from './authentication/register/register.module';
 import { ResetPasswordModule } from './authentication/reset-password/reset-password.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     imports: [
-
+        MatSnackBarModule,
         // Authentication
         LoginModule,
         LockModule,
