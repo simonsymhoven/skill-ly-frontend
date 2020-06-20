@@ -5,6 +5,7 @@ import { Observable, throwError, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../../environments/environment';
+import {Permission} from '../../models/permission.enum';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -54,7 +55,7 @@ export class AuthService {
           name: employee.name,
           username: employee.username,
           email: employee.email,
-          permissions: [employee.permission],
+          permissions: [Permission.user],
           password: employee.password
         }, httpOptions);
      }

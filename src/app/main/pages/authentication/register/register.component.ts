@@ -7,7 +7,6 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from '../../../../services/authentication/auth.service';
 import { Router } from '@angular/router';
-import { Permission } from '../../../../models/permission.enum';
 import {Employee} from '../../../../models/employee.model';
 import {FuseProgressBarService} from '../../../../../@fuse/components/progress-bar/progress-bar.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -21,7 +20,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class RegisterComponent implements OnInit, OnDestroy
 {
-    permissions = Object.values(Permission);
     registerForm: FormGroup;
     employee: Employee = new Employee();
 
@@ -82,7 +80,6 @@ export class RegisterComponent implements OnInit, OnDestroy
             name           : ['', Validators.required],
             username       : ['', Validators.required],
             email          : ['', [Validators.required, Validators.email]],
-            permission     : ['', Validators.required],
             password       : ['', Validators.required],
             passwordConfirm: ['', [Validators.required, confirmPasswordValidator]]
         });
@@ -119,7 +116,7 @@ export class RegisterComponent implements OnInit, OnDestroy
                     this.router.navigateByUrl('/pages/auth/login');
                 },
                 error => {
-                    this._snackbar.open('Error ' + error.status + ': ' + error.message, 'Ok');
+                    this._snackbar.open(`Error ${error.status}: ${error.message}`, 'Ok');
                     this.fuseProgressBarService.hide();
                     throw error;
                 }
