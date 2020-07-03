@@ -7,17 +7,19 @@ import {AuthService} from '../../../../services/authentication/auth.service';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from '../../../../../@fuse/components/progress-bar/progress-bar.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {GoogleLoginProvider, SocialAuthService, SocialUser} from 'angularx-social-login';
 
 @Component({
-    selector     : 'login',
-    templateUrl  : './login.component.html',
-    styleUrls    : ['./login.component.scss'],
+    selector: 'login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class LoginComponent implements OnInit
-{
+export class LoginComponent implements OnInit {
     loginForm: FormGroup;
+    user: SocialUser;
+    loggedIn: boolean;
 
     /**
      * Constructor
@@ -36,18 +38,17 @@ export class LoginComponent implements OnInit
         private router: Router,
         private fuseProgressBarService: FuseProgressBarService,
         private _snackbar: MatSnackBar
-    )
-    {
+    ) {
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
-                navbar   : {
+                navbar: {
                     hidden: true
                 },
-                toolbar  : {
+                toolbar: {
                     hidden: true
                 },
-                footer   : {
+                footer: {
                     hidden: true
                 },
                 sidepanel: {
@@ -64,16 +65,20 @@ export class LoginComponent implements OnInit
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.loginForm = this._formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
+
+        this.authService.getSocialLoggedInUser().subscribe((user) => {
+            if (user != null) {
+                this.router.navigateByUrl('/pages/dashboard');
+            }
+        });
     }
 
-    onSubmit(): void
-    {
+    onSubmit(): void {
         this.fuseProgressBarService.show();
         this.authService
             .login(
@@ -82,7 +87,7 @@ export class LoginComponent implements OnInit
             .subscribe(
                 token => {
                     this.fuseProgressBarService.hide();
-                    this.router.navigateByUrl('/pages/dashboard');
+                    this.router.navigate(['/pages/dashboard']);
                 },
                 error => {
                     this._snackbar.open(`Error ${error.status}: ${error.message}`, 'Ok');
@@ -91,4 +96,11 @@ export class LoginComponent implements OnInit
                 }
             );
     }
+
+
+    signInWithGoogle(): void {
+        this.authService.loginWithGoogle();
+    }
+
+
 }

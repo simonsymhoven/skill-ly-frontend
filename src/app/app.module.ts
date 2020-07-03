@@ -18,6 +18,9 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AuthInterceptorProviders } from './services/authentication/auth.interceptor';
+import { SocialAuthenticationConfig } from './services/authentication/social-auth.service';
+import { SocialLoginModule } from 'angularx-social-login';
+
 
 const appRoutes: Routes = [
     {
@@ -39,7 +42,7 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
-
+        SocialLoginModule,
         TranslateModule.forRoot(),
 
         // Material moment date module
@@ -63,8 +66,9 @@ const appRoutes: Routes = [
         AppComponent
     ],
     providers: [
-        AuthInterceptorProviders
-    ]
+        AuthInterceptorProviders,
+        SocialAuthenticationConfig
+    ],
 })
 export class AppModule {
 

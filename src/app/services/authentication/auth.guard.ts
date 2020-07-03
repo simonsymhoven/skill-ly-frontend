@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
             return isAuthorized;
          */
 
-        if (this.authService.isAuthenticated()) {
+        if (this.authService.isAuthenticated() || this.authService.isSocialLoggedIn) {
             return true;
         } else {
             this.router.navigateByUrl('/pages/auth/login');

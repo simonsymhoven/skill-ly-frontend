@@ -2,12 +2,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { fuseAnimations } from '@fuse/animations';
 import { EmployeeService } from '../../../services/employee/employee.service';
-import { Employee } from '../../../models/employee.model';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { FuseTranslationLoaderService } from '../../../../@fuse/services/translation-loader.service';
 import { locale as english } from './i18n/en';
 import { locale as german } from './i18n/de';
 import { locale as spanish } from './i18n/es';
+import { SocialUser } from 'angularx-social-login';
 
 @Component({
     selector     : 'profile',
@@ -18,7 +18,7 @@ import { locale as spanish } from './i18n/es';
 })
 export class ProfileComponent
 {
-    employee: Employee = new Employee();
+    user: SocialUser = new SocialUser();
 
     /**
      * Constructor
@@ -40,11 +40,9 @@ export class ProfileComponent
     /**
      * Get the logged in employee
      */
-    private getEmployee(): void
-    {
-        this._employeeService.getEmployee(this._authService.getLoggedInEmployeeUsername())
-            .subscribe(employee => {
-                this.employee = employee;
-            });
+    getEmployee(): void {
+        this._authService.getSocialLoggedInUser().subscribe(user => {
+            this.user = user;
+        })
     }
 }

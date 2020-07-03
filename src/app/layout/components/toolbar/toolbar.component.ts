@@ -13,8 +13,7 @@ import { locale as german } from './i18n/de';
 import { locale as spanish } from './i18n/es';
 import { FuseTranslationLoaderService } from '../../../../@fuse/services/translation-loader.service';
 import { AuthService } from '../../../services/authentication/auth.service';
-import { Employee } from '../../../models/employee.model';
-import { EmployeeService } from '../../../services/employee/employee.service';
+import { SocialUser } from 'angularx-social-login';
 
 @Component({
     selector     : 'toolbar',
@@ -31,7 +30,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
     languages: any;
     navigation: any;
     selectedLanguage: any;
-    employee: Employee = new Employee();
+    user: SocialUser = new SocialUser();
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -42,14 +41,15 @@ export class ToolbarComponent implements OnInit, OnDestroy
      * @param {FuseConfigService} _fuseConfigService
      * @param {FuseSidebarService} _fuseSidebarService
      * @param {TranslateService} _translateService
+     * @param _fuseTranslationLoaderService
+     * @param _authService
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
-        private _authService: AuthService,
-        private _employeeService: EmployeeService
+        private _authService: AuthService
     )
     {
         this._fuseTranslationLoaderService.loadTranslations(german, spanish, english);
@@ -161,11 +161,9 @@ export class ToolbarComponent implements OnInit, OnDestroy
     /**
      * Get the logged in employee
      */
-    private getEmployee(): void
-    {
-        this._employeeService.getEmployee(this._authService.getLoggedInEmployeeUsername())
-            .subscribe(employee => {
-                this.employee = employee;
-            });
+    getEmployee(): void {
+        this._authService.getSocialLoggedInUser().subscribe(user => {
+            this.user = user;
+        })
     }
 }

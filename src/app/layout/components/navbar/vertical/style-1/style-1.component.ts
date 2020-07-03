@@ -2,14 +2,12 @@ import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@ang
 import { NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators';
-
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
-import {EmployeeService} from '../../../../../services/employee/employee.service';
-import {AuthService} from '../../../../../services/authentication/auth.service';
-import {Employee} from '../../../../../models/employee.model';
+import { AuthService } from '../../../../../services/authentication/auth.service';
+import { SocialUser } from 'angularx-social-login';
 
 @Component({
     selector     : 'navbar-vertical-style-1',
@@ -21,7 +19,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
 {
     fuseConfig: any;
     navigation: any;
-    employee: Employee = new Employee();
+    user: SocialUser = new SocialUser();
 
     // Private
     private _fusePerfectScrollbar: FusePerfectScrollbarDirective;
@@ -34,13 +32,13 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
      * @param {FuseNavigationService} _fuseNavigationService
      * @param {FuseSidebarService} _fuseSidebarService
      * @param {Router} _router
+     * @param _authService
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
         private _router: Router,
-        private _employeeService: EmployeeService,
         private _authService: AuthService
     )
     {
@@ -168,9 +166,8 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
      * Get the logged in employee
      */
     getEmployee(): void {
-        this._employeeService.getEmployee(this._authService.getLoggedInEmployeeUsername())
-            .subscribe(employee => {
-                this.employee = employee;
-            });
+        this._authService.getSocialLoggedInUser().subscribe(user => {
+            this.user = user;
+        })
     }
 }

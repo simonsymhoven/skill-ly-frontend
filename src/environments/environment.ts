@@ -5,7 +5,8 @@
 export const environment = {
     production: false,
     hmr       : false,
-    baseURL   : 'http://localhost:8080/api/v1'
+    baseURL   : 'http://localhost:8080/api/v1',
+    google_oauth_client_id : '33715599448-msad2upromm0dldmf8pvqrfjdsc2b5u2.apps.googleusercontent.com'
 };
 
 /*

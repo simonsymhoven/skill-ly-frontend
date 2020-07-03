@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, Subject } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../../environments/environment';
-import {Permission} from '../../models/permission.enum';
+import { Permission } from '../../models/permission.enum';
+import {GoogleLoginProvider, SocialAuthService, SocialUser} from 'angularx-social-login';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,11 +18,12 @@ const httpOptions = {
 
 export class AuthService {
     helper = new JwtHelperService();
-    authChange = new Subject<boolean>();
+    isSocialLoggedIn : boolean;
 
     constructor(
         private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private socialAuthService: SocialAuthService
     )
     {
 
@@ -65,7 +67,9 @@ export class AuthService {
      */
     logout(): void {
         localStorage.removeItem('token');
-        this.router.navigate(['/pages/auth/login']);
+        this.isSocialLoggedIn = false;
+        this.signOut();
+        this.router.navigateByUrl('/pages/auth/login');
     }
 
     /**
@@ -129,4 +133,22 @@ export class AuthService {
             return false;
         }
     }
+
+    loginWithGoogle(): void {
+        this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((result) => {
+            console.log(result);
+            this.isSocialLoggedIn = true;
+        });
+    }
+
+    signOut(): void {
+        this.socialAuthService.signOut().then(result => {
+            console.log('Log out')
+        });
+    }
+
+    getSocialLoggedInUser(): Observable<SocialUser> {
+        return this.socialAuthService.authState;
+    }
+
 }

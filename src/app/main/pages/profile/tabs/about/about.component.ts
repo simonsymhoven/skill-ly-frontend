@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { fuseAnimations } from '@fuse/animations';
-import { Employee } from '../../../../../models/employee.model';
 import { EmployeeService } from '../../../../../services/employee/employee.service';
 import { AuthService } from '../../../../../services/authentication/auth.service';
 import { FuseTranslationLoaderService } from '../../../../../../@fuse/services/translation-loader.service';
 import { locale as english } from './i18n/en';
 import { locale as german } from './i18n/de';
 import { locale as spanish } from './i18n/es';
+import { SocialUser } from 'angularx-social-login';
 
 @Component({
     selector     : 'profile-about',
@@ -23,7 +23,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
     private _unsubscribeAll: Subject<any>;
 
     // Public
-    employee: Employee = new Employee();
+    user: SocialUser = new SocialUser();
 
     /**
      * Constructor
@@ -74,9 +74,8 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
      */
     private getEmployee(): void
     {
-        this._employeeService.getEmployee(this._authService.getLoggedInEmployeeUsername())
-            .subscribe(employee => {
-                this.employee = employee;
-            });
+        this._authService.getSocialLoggedInUser().subscribe(user => {
+            this.user = user;
+        });
     }
 }
