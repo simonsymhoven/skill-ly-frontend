@@ -65,86 +65,45 @@ export class AuthService {
     /**
      *
      */
-    logout(): void {
-        localStorage.removeItem('token');
-        this.isSocialLoggedIn = false;
-        this.signOut();
-        this.router.navigateByUrl('/pages/auth/login');
+
+
+
+
+
+    // ------------------
+
+    isAuthenticated(): boolean {
+        return !this.helper.isTokenExpired(this.getToken());
     }
 
-    /**
-     *
-     * @param token
-     */
+    decodeToken(): any {
+        return this.helper.decodeToken(this.getToken());
+    }
+
+    getToken(): any {
+        return localStorage.getItem('token');
+    }
+
     setToken(token): void {
         localStorage.setItem('token', token);
     }
 
-    /**
-     *
-     */
-     isAuthenticated(): boolean {
-        const token = localStorage.getItem('token');
-        return !this.helper.isTokenExpired(token);
-     }
-
-     getLoggedInEmployeeUsername(): string {
-         return this.decodeToken().sub;
-     }
-
-    /**
-     *
-     */
-    decodeToken(): any {
-        const token = localStorage.getItem('token');
-        const decodedToken = this.helper.decodeToken(token);
-        return decodedToken;
-    }
-
-
-    /**
-     *
-     */
-    getToken(): any {
-        const token = localStorage.getItem('token');
-        return token;
-    }
-
-    /**
-     *
-     * @param permissions
-     */
-    isAuthorized(permissions: string[]): boolean {
-        const token = this.decodeToken();
-        const employeePermissions = token ? [token.authorities] : [];
-
-        let value = false;
-        permissions.forEach(permission => {
-        employeePermissions.forEach(employeePermission => {
-             if (permission === employeePermission) {
-             value = true;
-            }
-            });
-        });
-
-        if (this.isAuthenticated() && value) {
-             return true;
-        } else {
-            return false;
-        }
-    }
-
     loginWithGoogle(): void {
         this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((result) => {
-            console.log(result);
+            this.setToken(result.idToken);
             this.isSocialLoggedIn = true;
         });
     }
 
     signOut(): void {
-        this.socialAuthService.signOut().then(result => {
-            console.log('Log out')
-        });
+        this.socialAuthService.signOut();
+    }
+
+    logout(): void {
+        localStorage.removeItem('token');
+        this.signOut();
+        this.isSocialLoggedIn = false;
+        this.router.navigateByUrl('/pages/auth/login');
     }
 
     getSocialLoggedInUser(): Observable<SocialUser> {

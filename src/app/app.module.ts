@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -20,7 +20,17 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { AuthInterceptorProviders } from './services/authentication/auth.interceptor';
 import { SocialAuthenticationConfig } from './services/authentication/social-auth.service';
 import { SocialLoginModule } from 'angularx-social-login';
-
+import {
+    MSAL_CONFIG,
+    MSAL_CONFIG_ANGULAR,
+    MsalAngularConfiguration,
+    MsalInterceptor,
+    MsalModule,
+    MsalService
+} from "@azure/msal-angular";
+import {environment} from "../environments/environment";
+import {Configuration} from "msal";
+import {isIE} from "zone.js/lib/common/utils";
 
 const appRoutes: Routes = [
     {
@@ -33,6 +43,7 @@ const appRoutes: Routes = [
     },
 ];
 
+
 @NgModule({
     declarations: [
         AppComponent
@@ -42,9 +53,20 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
+        MsalModule.forRoot({
+            auth: {
+                clientId: environment.azure_oauth_client_id, // This is your client ID
+                authority: environment.authority, // This is your tenant ID
+                redirectUri: environment.redirectUrl // This is your redirect URI
+            },
+            cache: {
+                cacheLocation: 'localStorage'
+            },
+        }),
+        // Authentication
         SocialLoginModule,
-        TranslateModule.forRoot(),
 
+        TranslateModule.forRoot(),
         // Material moment date module
         MatMomentDateModule,
 
@@ -67,7 +89,12 @@ const appRoutes: Routes = [
     ],
     providers: [
         AuthInterceptorProviders,
-        SocialAuthenticationConfig
+        SocialAuthenticationConfig,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: MsalInterceptor,
+            multi: true
+        }
     ],
 })
 export class AppModule {

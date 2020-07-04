@@ -155,7 +155,7 @@ login {
                 button {
 
                     &.google,
-                    &.facebook {
+                    &.microsoft {
                         width: 70%;
                         text-transform: none;
                         color: #FFFFFF;
@@ -176,8 +176,8 @@ login {
                         margin-bottom: 8px;
                     }
 
-                    &.facebook {
-                        background-color: rgb(63, 92, 154);
+                    &.microsoft {
+                        background-color: rgb(0, 128, 182);
                     }
                 }
 

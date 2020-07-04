@@ -52,14 +52,10 @@
                     <mat-checkbox class="remember-me" aria-label="Remember Me">
                         Remember Me
                     </mat-checkbox>
-
-                    <a class="forgot-password" [routerLink]="'/pages/auth/forgot-password'">
-                        Forgot Password?
-                    </a>
                 </div>
 
                 <button mat-raised-button color="accent" class="submit-button" aria-label="LOGIN"
-                        [disabled]="loginForm.invalid">
+                        [disabled]="true">
                     LOGIN
                 </button>
 
@@ -74,10 +70,10 @@
                     Log in with Google
                 </button>
             </div>
-
-            <div class="register" fxLayout="column" fxLayoutAlign="center center">
-                <span class="text">Don't have an account?</span>
-                <a class="link" [routerLink]="'/pages/auth/register'">Create an account</a>
+            <div fxLayout="column" fxLayoutAlign="start center">
+                <button mat-raised-button class="microsoft" (click)="signInWithAzureAD()">
+                    Log in with Microsoft
+                </button>
             </div>
         </div>
     </div>

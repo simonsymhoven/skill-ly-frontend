@@ -6,7 +6,10 @@ export const environment = {
     production: false,
     hmr       : false,
     baseURL   : 'http://localhost:8080/api/v1',
-    google_oauth_client_id : '33715599448-msad2upromm0dldmf8pvqrfjdsc2b5u2.apps.googleusercontent.com'
+    google_oauth_client_id : '33715599448-msad2upromm0dldmf8pvqrfjdsc2b5u2.apps.googleusercontent.com',
+    azure_oauth_client_id: '14693ce2-9c6b-4547-b943-3e73a16be213',
+    authority: 'https://login.microsoftonline.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a/',
+    redirectUrl: 'http://localhost:4200'
 };
 
 /*

@@ -7,7 +7,8 @@ import {AuthService} from '../../../../services/authentication/auth.service';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from '../../../../../@fuse/components/progress-bar/progress-bar.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {GoogleLoginProvider, SocialAuthService, SocialUser} from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
+import {MsalService} from "@azure/msal-angular";
 
 @Component({
     selector: 'login',
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
      * @param router
      * @param fuseProgressBarService
      * @param _snackbar
+     * @param authServiceAzure
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
@@ -37,7 +39,8 @@ export class LoginComponent implements OnInit {
         private authService: AuthService,
         private router: Router,
         private fuseProgressBarService: FuseProgressBarService,
-        private _snackbar: MatSnackBar
+        private _snackbar: MatSnackBar,
+        private authServiceAzure: MsalService
     ) {
         // Configure the layout
         this._fuseConfigService.config = {
@@ -103,4 +106,7 @@ export class LoginComponent implements OnInit {
     }
 
 
+    signInWithAzureAD() {
+        //this.authServiceAzure.loginPopup();
+    }
 }
