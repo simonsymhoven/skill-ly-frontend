@@ -7,8 +7,6 @@ import {AuthService} from '../../../../services/authentication/auth.service';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from '../../../../../@fuse/components/progress-bar/progress-bar.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SocialUser } from 'angularx-social-login';
-import {MsalService} from "@azure/msal-angular";
 
 @Component({
     selector: 'login',
@@ -19,8 +17,6 @@ import {MsalService} from "@azure/msal-angular";
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-    user: SocialUser;
-    loggedIn: boolean;
 
     /**
      * Constructor
@@ -31,7 +27,6 @@ export class LoginComponent implements OnInit {
      * @param router
      * @param fuseProgressBarService
      * @param _snackbar
-     * @param authServiceAzure
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
@@ -39,8 +34,7 @@ export class LoginComponent implements OnInit {
         private authService: AuthService,
         private router: Router,
         private fuseProgressBarService: FuseProgressBarService,
-        private _snackbar: MatSnackBar,
-        private authServiceAzure: MsalService
+        private _snackbar: MatSnackBar
     ) {
         // Configure the layout
         this._fuseConfigService.config = {
@@ -73,12 +67,6 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-
-        this.authService.getSocialLoggedInUser().subscribe((user) => {
-            if (user != null) {
-                this.router.navigateByUrl('/pages/dashboard');
-            }
-        });
     }
 
     onSubmit(): void {
@@ -106,7 +94,7 @@ export class LoginComponent implements OnInit {
     }
 
 
-    signInWithAzureAD() {
-        //this.authServiceAzure.loginPopup();
+    signInWithAzureAD(): void {
+        this.authService.loginWithAzure();
     }
 }

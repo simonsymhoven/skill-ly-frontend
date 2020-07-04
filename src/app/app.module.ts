@@ -21,16 +21,10 @@ import { AuthInterceptorProviders } from './services/authentication/auth.interce
 import { SocialAuthenticationConfig } from './services/authentication/social-auth.service';
 import { SocialLoginModule } from 'angularx-social-login';
 import {
-    MSAL_CONFIG,
-    MSAL_CONFIG_ANGULAR,
-    MsalAngularConfiguration,
     MsalInterceptor,
     MsalModule,
-    MsalService
-} from "@azure/msal-angular";
-import {environment} from "../environments/environment";
-import {Configuration} from "msal";
-import {isIE} from "zone.js/lib/common/utils";
+} from '@azure/msal-angular';
+import {environment} from '../environments/environment';
 
 const appRoutes: Routes = [
     {

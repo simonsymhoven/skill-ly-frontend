@@ -7,6 +7,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../../environments/environment';
 import { Permission } from '../../models/permission.enum';
 import {GoogleLoginProvider, SocialAuthService, SocialUser} from 'angularx-social-login';
+import {MsalService} from '@azure/msal-angular';
+
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +25,8 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private socialAuthService: SocialAuthService
+        private socialAuthService: SocialAuthService,
+        private authServiceAzure: MsalService
     )
     {
 
@@ -92,6 +95,17 @@ export class AuthService {
         this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((result) => {
             this.setToken(result.idToken);
             this.isSocialLoggedIn = true;
+            console.log(result.idToken);
+            this.router.navigateByUrl('/pages/dashboard');
+        });
+    }
+
+    loginWithAzure(): void {
+        this.authServiceAzure.loginPopup().then(result => {
+            this.setToken(result.idToken.rawIdToken);
+            this.isSocialLoggedIn = true;
+            console.log(result.idToken.rawIdToken);
+            this.router.navigateByUrl('/pages/dashboard');
         });
     }
 
@@ -109,5 +123,7 @@ export class AuthService {
     getSocialLoggedInUser(): Observable<SocialUser> {
         return this.socialAuthService.authState;
     }
+
+
 
 }
