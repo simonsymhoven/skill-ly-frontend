@@ -49,9 +49,10 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes),
         MsalModule.forRoot({
             auth: {
-                clientId: environment.azure_oauth_client_id, // This is your client ID
-                authority: environment.authority, // This is your tenant ID
-                redirectUri: environment.redirectUrl // This is your redirect URI
+                clientId: environment.azure_oauth_client_id,
+                authority: environment.authority,
+                redirectUri: environment.redirectUrl,
+                postLogoutRedirectUri: environment.redirectUrl
             },
             cache: {
                 cacheLocation: 'localStorage'

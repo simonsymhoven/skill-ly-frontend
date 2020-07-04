@@ -6,8 +6,8 @@ import { map, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../../environments/environment';
 import { Permission } from '../../models/permission.enum';
-import {GoogleLoginProvider, SocialAuthService, SocialUser} from 'angularx-social-login';
-import {MsalService} from '@azure/msal-angular';
+import { GoogleLoginProvider, SocialAuthService, SocialUser} from 'angularx-social-login';
+import { MsalService } from '@azure/msal-angular';
 
 
 const httpOptions = {
@@ -20,7 +20,9 @@ const httpOptions = {
 
 export class AuthService {
     helper = new JwtHelperService();
-    isSocialLoggedIn : boolean;
+    user: SocialUser = new SocialUser();
+    socialLoggedIn = false;
+    adLoggedIn = false;
 
     constructor(
         private http: HttpClient,
@@ -79,8 +81,8 @@ export class AuthService {
         return !this.helper.isTokenExpired(this.getToken());
     }
 
-    decodeToken(): any {
-        return this.helper.decodeToken(this.getToken());
+    decodeToken(token): any {
+        return this.helper.decodeToken(token);
     }
 
     getToken(): any {
@@ -94,34 +96,44 @@ export class AuthService {
     loginWithGoogle(): void {
         this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((result) => {
             this.setToken(result.idToken);
-            this.isSocialLoggedIn = true;
-            console.log(result.idToken);
+            this.socialLoggedIn = true;
+            this.user = result;
             this.router.navigateByUrl('/pages/dashboard');
         });
     }
 
     loginWithAzure(): void {
-        this.authServiceAzure.loginPopup().then(result => {
+        const loginRequest = {
+            scopes: ['user.read', 'openid', 'profile']
+        }
+
+        this.authServiceAzure.loginPopup(loginRequest).then(result => {
             this.setToken(result.idToken.rawIdToken);
-            this.isSocialLoggedIn = true;
-            console.log(result.idToken.rawIdToken);
+            this.adLoggedIn = true;
+            this.user.email = result.account.userName;
+            this.user.name = result.account.name;
+            
+            console.log(result);
             this.router.navigateByUrl('/pages/dashboard');
         });
     }
 
-    signOut(): void {
-        this.socialAuthService.signOut();
-    }
-
     logout(): void {
         localStorage.removeItem('token');
-        this.signOut();
-        this.isSocialLoggedIn = false;
-        this.router.navigateByUrl('/pages/auth/login');
+
+        if (this.socialLoggedIn) {
+            this.socialLoggedIn = false;
+            this.socialAuthService.signOut().then(_ => {
+                this.router.navigateByUrl('/pages/auth/login');
+            });
+        } else if (this.adLoggedIn) {
+            this.adLoggedIn = false;
+            this.authServiceAzure.logout();
+        }
     }
 
-    getSocialLoggedInUser(): Observable<SocialUser> {
-        return this.socialAuthService.authState;
+    getUser(): SocialUser {
+        return this.user;
     }
 
 

@@ -72,10 +72,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
     /**
      * Get the logged in employee
      */
-    private getEmployee(): void
-    {
-        this._authService.getSocialLoggedInUser().subscribe(user => {
-            this.user = user;
-        });
+    private getEmployee(): void {
+        this.user = this._authService.getUser()
     }
 }
