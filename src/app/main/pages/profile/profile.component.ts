@@ -41,6 +41,6 @@ export class ProfileComponent
      * Get the logged in employee
      */
     getEmployee(): void {
-        this.user = this._authService.getUser()
+        this.user = this._authService.getUser();
     }
 }

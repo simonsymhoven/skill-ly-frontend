@@ -162,6 +162,6 @@ export class ToolbarComponent implements OnInit, OnDestroy
      * Get the logged in employee
      */
     getEmployee(): void {
-        this.user = this._authService.getUser()
+        this.user = this._authService.getUser();
     }
 }

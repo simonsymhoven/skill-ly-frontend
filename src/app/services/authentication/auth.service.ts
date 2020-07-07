@@ -105,7 +105,7 @@ export class AuthService {
     loginWithAzure(): void {
         const loginRequest = {
             scopes: ['user.read', 'openid', 'profile']
-        }
+        };
 
         this.authServiceAzure.loginPopup(loginRequest).then(result => {
             this.setToken(result.idToken.rawIdToken);
