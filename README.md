@@ -1,9 +1,9 @@
 # ![](src/assets/images/logos/logo_small.png) The frontend part of Skill-Ly 
 
 
-![CLI9](https://img.shields.io/badge/cli-9-red.svg?label=CLI)
+![CLI9](https://img.shields.io/badge/cli-10.0.1-red.svg?label=angular/cli)
 ![npm](https://img.shields.io/npm/v/npm/latest)
-![node](https://img.shields.io/badge/node-12.16.3-blue)
+![node](https://img.shields.io/badge/node-14.0.5-blue)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/simonsymhoven/skill-ly-frontend.svg)](https://github.com/simonsymhoven/skill-ly-frontend/pulls)
 ![Travis](https://travis-ci.com/simonsymhoven/skill-ly-frontend.svg?branch=master)
 
