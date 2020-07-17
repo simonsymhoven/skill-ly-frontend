@@ -10,6 +10,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 
 import { LoginComponent } from 'app/main/pages/authentication/login/login.component';
 
+
 const routes = [
     {
         path     : 'auth/login',
@@ -29,7 +30,6 @@ const routes = [
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-
         FuseSharedModule
     ]
 })

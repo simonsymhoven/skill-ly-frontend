@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -20,11 +20,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { AuthInterceptorProviders } from './services/authentication/auth.interceptor';
 import { SocialAuthenticationConfig } from './services/authentication/social-auth.service';
 import { SocialLoginModule } from 'angularx-social-login';
-import {
-    MsalInterceptor,
-    MsalModule,
-} from '@azure/msal-angular';
-import {environment} from '../environments/environment';
+
 
 const appRoutes: Routes = [
     {
@@ -47,17 +43,7 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
-        MsalModule.forRoot({
-            auth: {
-                clientId: environment.azure_oauth_client_id,
-                authority: environment.authority,
-                redirectUri: environment.redirectUrl,
-                postLogoutRedirectUri: environment.redirectUrl
-            },
-            cache: {
-                cacheLocation: 'localStorage'
-            },
-        }),
+
         // Authentication
         SocialLoginModule,
 
@@ -84,13 +70,8 @@ const appRoutes: Routes = [
     ],
     providers: [
         AuthInterceptorProviders,
-        SocialAuthenticationConfig,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: MsalInterceptor,
-            multi: true
-        }
-    ],
+        SocialAuthenticationConfig
+    ]
 })
 export class AppModule {
 

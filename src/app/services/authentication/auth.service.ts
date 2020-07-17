@@ -104,7 +104,7 @@ export class AuthService {
 
     loginWithAzure(): void {
         const loginRequest = {
-            scopes: ['user.read', 'openid', 'profile']
+            extraScopesToConsent: ['user.read', 'openid', 'profile']
         };
 
         this.authServiceAzure.loginPopup(loginRequest).then(result => {
@@ -112,8 +112,7 @@ export class AuthService {
             this.adLoggedIn = true;
             this.user.email = result.account.userName;
             this.user.name = result.account.name;
-            
-            console.log(result);
+
             this.router.navigateByUrl('/pages/dashboard');
         });
     }
@@ -135,7 +134,5 @@ export class AuthService {
     getUser(): SocialUser {
         return this.user;
     }
-
-
 
 }

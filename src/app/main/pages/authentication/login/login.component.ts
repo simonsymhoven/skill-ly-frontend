@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
-import {AuthService} from '../../../../services/authentication/auth.service';
+import { AuthService } from '../../../../services/authentication/auth.service';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from '../../../../../@fuse/components/progress-bar/progress-bar.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
     selector: 'login',
