@@ -25,5 +25,26 @@ export const navigation: FuseNavigation[] = [
             },
 
         ]
+    },
+    {
+        id       : 'documentation',
+        title    : 'Documentation',
+        translate: 'DOCUMENTATION',
+        type     : 'group',
+        children : [
+            {
+                id       : 'changelog',
+                title    : 'Changelog',
+                translate: 'CHANGELOG',
+                type     : 'item',
+                icon     : 'track_changes',
+                url      : 'documentation/changelog',
+                badge: {
+                    title: '0.0.1',
+                    bg   : '#EC0C8E',
+                    fg   : '#FFFFFF'
+                }
+            }
+        ]
     }
 ];

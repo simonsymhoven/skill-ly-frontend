@@ -96,6 +96,7 @@ export class AuthService {
             this.setToken(result.idToken);
             this.socialLoggedIn = true;
             this.user = result;
+            this.user.photoUrl = `https://eu.ui-avatars.com/api/?background=0D8ABC&color=fff&name=${this.user.name}`;
             this.router.navigateByUrl('/pages/dashboard');
         });
     }
@@ -109,8 +110,8 @@ export class AuthService {
             this.setToken(result.idToken.rawIdToken);
             this.adLoggedIn = true;
             this.user.email = result.account.userName;
-            this.user.name = result.account.name;
-            this.user.photoUrl = 'https://eu.ui-avatars.com/api/?background=0D8ABC&color=fff';
+            this.user.name = result.account.name.replace(this.user.email, '');
+            this.user.photoUrl = `https://eu.ui-avatars.com/api/?background=0D8ABC&color=fff&name=${this.user.name}`;
             this.router.navigateByUrl('/pages/dashboard');
         });
     }
@@ -133,5 +134,4 @@ export class AuthService {
     getUser(): SocialUser {
         return this.user;
     }
-
 }

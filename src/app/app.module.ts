@@ -17,7 +17,6 @@ import { fuseConfig } from 'app/fuse-config';
 
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
-import { AuthInterceptorProviders } from './services/authentication/auth.interceptor';
 import { MSALAuthenticationConfig, SocialAuthenticationConfig} from './services/authentication/social-auth.service';
 import { SocialLoginModule } from 'angularx-social-login';
 import {MsalModule} from '@azure/msal-angular';
@@ -27,6 +26,10 @@ const appRoutes: Routes = [
     {
         path        : 'pages',
         loadChildren: () => import('./main/pages/pages.module').then(m => m.PagesModule)
+    },
+    {
+        path        : 'documentation',
+        loadChildren: () => import('./main/documentation/documentation.module').then(m => m.DocumentationModule)
     },
     {
         path        : '**',
@@ -79,5 +82,4 @@ const appRoutes: Routes = [
     ]
 })
 export class AppModule {
-
 }

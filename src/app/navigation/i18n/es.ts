@@ -3,6 +3,8 @@ export const locale = {
     data: {
         APPLICATIONS : 'Menú',
         DASHBOARD : 'Dashboard',
-        PROFILE : 'Mi perfil'
+        PROFILE : 'Mi perfil',
+        DOCUMENTATION: 'Documentación',
+        CHANGELOG: 'Changelog'
     }
 };
