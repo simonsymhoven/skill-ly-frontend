@@ -18,8 +18,9 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AuthInterceptorProviders } from './services/authentication/auth.interceptor';
-import { SocialAuthenticationConfig } from './services/authentication/social-auth.service';
+import { MSALAuthenticationConfig, SocialAuthenticationConfig} from './services/authentication/social-auth.service';
 import { SocialLoginModule } from 'angularx-social-login';
+import {MsalModule} from '@azure/msal-angular';
 
 
 const appRoutes: Routes = [
@@ -55,6 +56,9 @@ const appRoutes: Routes = [
         MatButtonModule,
         MatIconModule,
 
+        // MSAL
+        MsalModule,
+
         // Fuse modules
         FuseModule.forRoot(fuseConfig),
         FuseProgressBarModule,
@@ -69,8 +73,9 @@ const appRoutes: Routes = [
         AppComponent
     ],
     providers: [
-        AuthInterceptorProviders,
-        SocialAuthenticationConfig
+        // AuthInterceptorProviders,
+        SocialAuthenticationConfig,
+        MSALAuthenticationConfig
     ]
 })
 export class AppModule {

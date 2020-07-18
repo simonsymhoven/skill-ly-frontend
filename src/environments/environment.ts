@@ -9,7 +9,8 @@ export const environment = {
     google_oauth_client_id : '33715599448-msad2upromm0dldmf8pvqrfjdsc2b5u2.apps.googleusercontent.com',
     azure_oauth_client_id: 'e805b187-4a75-4d76-ae89-767d32d53b17',
     authority: 'https://login.microsoftonline.com/42f2c9da-1a16-4951-9762-1ccb1be48721/',
-    redirectUrl: 'http://localhost:4200/pages/dashboard'
+    redirectUrl: 'http://localhost:4200/pages/dashboard',
+    postLogoutRedirectUrl: 'http://localhost:4200/pages/auth/login'
 };
 
 /*

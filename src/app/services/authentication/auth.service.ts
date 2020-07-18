@@ -28,7 +28,7 @@ export class AuthService {
         private http: HttpClient,
         private router: Router,
         private socialAuthService: SocialAuthService,
-        private authServiceAzure: MsalService
+        private authServiceAzure: MsalService,
     )
     {
 
@@ -72,12 +72,10 @@ export class AuthService {
      */
 
 
-
-
-
     // ------------------
 
     isAuthenticated(): boolean {
+        console.log(!this.helper.isTokenExpired(this.getToken()));
         return !this.helper.isTokenExpired(this.getToken());
     }
 
@@ -112,7 +110,7 @@ export class AuthService {
             this.adLoggedIn = true;
             this.user.email = result.account.userName;
             this.user.name = result.account.name;
-
+            this.user.photoUrl = 'https://eu.ui-avatars.com/api/?background=0D8ABC&color=fff';
             this.router.navigateByUrl('/pages/dashboard');
         });
     }
@@ -128,6 +126,7 @@ export class AuthService {
         } else if (this.adLoggedIn) {
             this.adLoggedIn = false;
             this.authServiceAzure.logout();
+            this.router.navigateByUrl('/pages/auth/login');
         }
     }
 

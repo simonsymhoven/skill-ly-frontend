@@ -10,28 +10,9 @@ import {
 } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-export function MSALConfigFactory(): Configuration {
-  return {
-    auth: {
-      clientId: environment.azure_oauth_client_id,
-      authority: environment.authority,
-      redirectUri: environment.redirectUrl,
-      postLogoutRedirectUri: environment.redirectUrl,
-      navigateToLoginRequestUrl: true,
-      validateAuthority: true
-    },
-    cache: {
-      cacheLocation: 'localStorage',
-      storeAuthStateInCookie: false,
-    },
-   };
-}
-
-export function MSALAngularConfigFactory(): MsalAngularConfiguration {
-  return {
-    popUp: false
-  };
-}
+export const protectedResourceMap: [string, string[]][] = [
+  ['https://graph.microsoft.com/beta/', ['user.read']]
+];
 
 export const SocialAuthenticationConfig = [
   {
@@ -47,7 +28,33 @@ export const SocialAuthenticationConfig = [
         }
       ],
     } as SocialAuthServiceConfig,
-  },
+  }];
+
+function MSALConfigFactory(): Configuration {
+  return {
+    auth: {
+      clientId: environment.azure_oauth_client_id,
+      authority: environment.authority,
+      redirectUri: environment.redirectUrl,
+      postLogoutRedirectUri: environment.postLogoutRedirectUrl,
+      navigateToLoginRequestUrl: true,
+      validateAuthority: true
+    },
+    cache: {
+      cacheLocation: 'localStorage',
+      storeAuthStateInCookie: false,
+    },
+  };
+}
+
+function MSALAngularConfigFactory(): MsalAngularConfiguration {
+  return {
+    popUp: false,
+    protectedResourceMap
+  };
+}
+
+export const MSALAuthenticationConfig = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: MsalInterceptor,
@@ -62,4 +69,4 @@ export const SocialAuthenticationConfig = [
     useFactory: MSALAngularConfigFactory
   },
     MsalService
-  ];
+];
